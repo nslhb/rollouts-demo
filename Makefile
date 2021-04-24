@@ -29,7 +29,6 @@ image:
 	docker buildx create --name "rollouts-demo" --use --append
 	docker buildx build --platform="linux/amd64,linux/arm64,linux/arm" --build-arg COLOR=${COLOR} --build-arg ERROR_RATE=${ERROR_RATE} --build-arg LATENCY=${LATENCY} -t $(IMAGE_PREFIX)rollouts-demo:${IMAGE_TAG} .
 	@if [ "$(DOCKER_PUSH)" = "true" ] ; then docker push $(IMAGE_PREFIX)rollouts-demo:$(IMAGE_TAG) ; fi
-	docker buildx imagetools inspect $(IMAGE_PREFIX)rollouts-demo:$(IMAGE_TAG)"
 
 .PHONY: load-tester-image
 load-tester-image:
