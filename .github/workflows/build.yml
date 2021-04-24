@@ -30,4 +30,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
-        run: DOCKER_PUSH=true IMAGE_NAMESPACE=ghcr.io/$GITHUB_REPOSITORY make build image
+        run: IMAGE_NAMESPACE=ghcr.io/nslhub make build image
