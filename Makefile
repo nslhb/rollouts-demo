@@ -26,7 +26,7 @@ build:
 
 .PHONY: image
 image:
-	docker buildx build --platform="linux/amd64,linux/arm64,linux/arm" --build-arg COLOR=${COLOR} --build-arg ERROR_RATE=${ERROR_RATE} --build-arg LATENCY=${LATENCY} -t $(IMAGE_PREFIX)rollouts-demo:${IMAGE_TAG} --push .
+	docker buildx build --platform="linux/amd64,linux/arm64,linux/arm" --build-arg COLOR=$(COLOR) --build-arg ERROR_RATE=${ERROR_RATE} --build-arg LATENCY=${LATENCY} -t $(IMAGE_PREFIX)rollouts-demo:${IMAGE_TAG} --push .
 
 .PHONY: load-tester-image
 load-tester-image:
@@ -51,7 +51,7 @@ lint: fmt vet
 
 .PHONY: release
 release:
-	./scripts/release.sh DOCKER_PUSH=${DOCKER_PUSH} IMAGE_NAMESPACE=${IMAGE_NAMESPACE}
+	./scripts/release.sh IMAGE_NAMESPACE=${IMAGE_NAMESPACE}
 
 .PHONY: clean
 clean:
