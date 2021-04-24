@@ -26,8 +26,10 @@ build:
 
 .PHONY: image
 image:
-	docker build --build-arg COLOR=${COLOR} --build-arg ERROR_RATE=${ERROR_RATE} --build-arg LATENCY=${LATENCY} -t $(IMAGE_PREFIX)rollouts-demo:${IMAGE_TAG} .
+	docker buildx create --name "rollouts-demo" --use --append
+	docker buildx build --platform="linux/amd64,linux/arm64,linux/arm" --build-arg COLOR=${COLOR} --build-arg ERROR_RATE=${ERROR_RATE} --build-arg LATENCY=${LATENCY} -t $(IMAGE_PREFIX)rollouts-demo:${IMAGE_TAG} .
 	@if [ "$(DOCKER_PUSH)" = "true" ] ; then docker push $(IMAGE_PREFIX)rollouts-demo:$(IMAGE_TAG) ; fi
+	docker buildx imagetools inspect $(IMAGE_PREFIX)rollouts-demo:$(IMAGE_TAG)"
 
 .PHONY: load-tester-image
 load-tester-image:
@@ -39,14 +41,22 @@ load-tester-image:
 run:
 	go run main.go
 
+.PHONY: fmt
+fmt:
+	gofmt -s -w .
+
+.PHONY: vet
+vet:
+	go vet ./...
+
 .PHONY: lint
-lint:
-	golangci-lint run --fix
+lint: fmt vet
 
 .PHONY: release
 release:
-	./release.sh DOCKER_PUSH=${DOCKER_PUSH} IMAGE_NAMESPACE=${IMAGE_NAMESPACE}
+	./scripts/release.sh DOCKER_PUSH=${DOCKER_PUSH} IMAGE_NAMESPACE=${IMAGE_NAMESPACE}
 
 .PHONY: clean
 clean:
 	rm -f rollouts-demo
+

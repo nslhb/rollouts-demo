@@ -11,6 +11,7 @@ strings=(
     "purple"
 )
 
+
 for color in "${strings[@]}"; do
     make image COLOR=${color} DOCKER_PUSH=${DOCKER_PUSH} IMAGE_NAMESPACE=${IMAGE_NAMESPACE}
     make image COLOR=${color} ERROR_RATE=15 DOCKER_PUSH=${DOCKER_PUSH} IMAGE_NAMESPACE=${IMAGE_NAMESPACE}
