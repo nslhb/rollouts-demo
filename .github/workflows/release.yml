@@ -23,4 +23,5 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          VERSION: ${GITHUB_SHA::8}
         run: ./scripts/release.sh
