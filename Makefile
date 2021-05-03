@@ -1,7 +1,7 @@
 COLOR?=
 IMAGE_NAMESPACE?=
 ERROR_RATE?=
-IMAGE_TAG?=latest
+IMAGE_TAG?=$(shell git describe --tags)
 
 ifneq (${COLOR},)
 IMAGE_TAG=${COLOR}
