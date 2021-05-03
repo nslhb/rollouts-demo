@@ -2,7 +2,7 @@ COLOR?=
 IMAGE_NAMESPACE?=
 ERROR_RATE?=
 TIMESTAMP=$(shell date +%Y%m%d%H%M%S)
-VERSION?=$(shell git describe --tags)
+VERSION?=$(shell git rev-parse --short HEAD)
 
 ifneq (${COLOR},)
 IMAGE_TAG=${COLOR}-${TIMESTAMP}-${VERSION}
