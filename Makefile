@@ -1,16 +1,17 @@
 COLOR?=
 IMAGE_NAMESPACE?=
 ERROR_RATE?=
+TIMESTAMP=$(shell date +%Y%m%d%H%M%S)
 VERSION?=$(shell git describe --tags)
 
 ifneq (${COLOR},)
-IMAGE_TAG=${COLOR}-${VERSION}
+IMAGE_TAG=${COLOR}-${TIMESTAMP}-${VERSION}
 endif
 ifneq (${LATENCY},)
-IMAGE_TAG=slow-${COLOR}-${VERSION}
+IMAGE_TAG=slow-${COLOR}-${TIMESTAMP}-${VERSION}
 endif
 ifneq (${ERROR_RATE},)
-IMAGE_TAG=bad-${COLOR}-${VERSION}
+IMAGE_TAG=bad-${COLOR}-${TIMESTAMP}-${VERSION}
 endif
 
 ifdef IMAGE_NAMESPACE
