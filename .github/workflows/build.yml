@@ -30,6 +30,6 @@ jobs:
           password: ${{ secrets.CR_PAT }}
 
       - name: Build
-        run: ./scripts/release.sh
+        run: make release
         env:
           IMAGE_NAMESPACE: ghcr.io/nslhb
